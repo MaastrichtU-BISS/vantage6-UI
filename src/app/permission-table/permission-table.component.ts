@@ -53,7 +53,9 @@ export class PermissionTableComponent implements OnInit, OnChanges {
   constructor(public userPermission: UserPermissionService) {}
 
   ngOnInit(): void {
-    this.rule_groups = this.userPermission.getRuleGroupsCopy();
+    this.userPermission.getRuleGroups().subscribe((rule_groups) => {
+      this.rule_groups = rule_groups;
+    });
     this.init();
   }
 

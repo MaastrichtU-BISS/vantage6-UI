@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 import { Role } from 'src/app/interfaces/role';
 import { Rule } from 'src/app/interfaces/rule';
@@ -10,6 +12,7 @@ import { UserService } from 'src/app/services/api/user.service';
 import { UserPermissionService } from 'src/app/services/user-permission.service';
 import { ChangeExit } from 'src/app/globals/enum';
 import { UserEditService } from '../user-edit.service';
+import { Observable } from 'rxjs';
 
 // TODO add option to assign user to different organization
 
@@ -23,15 +26,20 @@ export class UserEditComponent implements OnInit {
   roles_assignable: Role[] = [];
   loggedin_user: User = EMPTY_USER;
   added_rules: Rule[] = [];
+  all_rules: Rule[] = [];
 
   constructor(
     private location: Location,
+    private route: ActivatedRoute,
     public userPermission: UserPermissionService,
-    private userService: UserService,
+    private userApiService: UserService,
     private userEditService: UserEditService
   ) {}
 
   ngOnInit(): void {
+    this.userPermission.getRuleDescriptions().subscribe((rules) => {
+      this.all_rules = rules;
+    });
     this.userPermission.getUser().subscribe((user) => {
       this.loggedin_user = user;
     });
@@ -40,6 +48,12 @@ export class UserEditComponent implements OnInit {
     });
     this.userEditService.getAvailableRoles().subscribe((roles) => {
       this.roles_assignable = roles;
+    });
+    this.route.params.subscribe((res) => {
+      let id = res.id;
+      if (id >= 0 && id != this.user.id) {
+        this.user = this.userApiService.getUser(id);
+      }
     });
   }
 
@@ -79,9 +93,9 @@ export class UserEditComponent implements OnInit {
         alert('Passwords do not match! Cannot create this user.');
         return;
       }
-      user_request = this.userService.create(this.user);
+      user_request = this.userApiService.create(this.user);
     } else {
-      user_request = this.userService.update(this.user);
+      user_request = this.userApiService.update(this.user);
     }
 
     user_request.subscribe(

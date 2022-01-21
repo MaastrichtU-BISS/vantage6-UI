@@ -33,6 +33,7 @@ export class UserPermissionService {
   allRules: Rule[] = [];
   allRulesBhs = new BehaviorSubject<Rule[]>([]);
   rule_groups: RuleGroup[] = [];
+  rule_groups_bhs = new BehaviorSubject<RuleGroup[]>([]);
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -78,6 +79,10 @@ export class UserPermissionService {
 
   getRuleGroupsCopy(): RuleGroup[] {
     return JSON.parse(JSON.stringify(this.rule_groups));
+  }
+
+  getRuleGroups(): Observable<RuleGroup[]> {
+    return this.rule_groups_bhs.asObservable();
   }
 
   getPermissionSubset(
@@ -241,6 +246,7 @@ export class UserPermissionService {
 
     // divide sorted rules in groups
     this.rule_groups = this._makeRuleGroups();
+    this.rule_groups_bhs.next(this.rule_groups);
   }
 
   private async _setPermissions(user_data: any, all_rules: Rule[]) {

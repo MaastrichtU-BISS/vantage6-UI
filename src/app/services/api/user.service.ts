@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { User } from 'src/app/interfaces/user';
+import { EMPTY_USER, User } from 'src/app/interfaces/user';
 import { getIdsFromArray } from 'src/app/utils';
+import { RoleService } from './role.service';
+import { Rule } from 'src/app/interfaces/rule';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private roleService: RoleService) {}
 
   list(organization_id: number | null = null) {
     let params: any = {};
@@ -51,5 +53,25 @@ export class UserService {
       data.password = user.password;
     }
     return data;
+  }
+
+  getUser(id: number): User {
+    if (id <= 0) return EMPTY_USER;
+
+    // first obtain user information to get roles, then set user
+    this.get(id).subscribe(
+      (data: any) => {
+        console.log(data);
+        let role_ids = getIdsFromArray(data.roles);
+        let roles = this.roleService.getRoles(role_ids);
+        console.log(roles);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    // TODO set user by obtaining them from API
+    return EMPTY_USER;
   }
 }
