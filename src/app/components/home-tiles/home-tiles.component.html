@@ -1,7 +1,11 @@
 <div class="container">
   <h2>Choose a collaboration</h2>
   <div class="tile-container">
-    <mat-card class="tile" *ngFor="let collaboration of collaborations">
+    <mat-card
+      class="tile"
+      [routerLink]="['/home']"
+      *ngFor="let collaboration of collaborations"
+    >
       <mat-icon>train</mat-icon>
       <span>{{ collaboration.name }}</span>
     </mat-card>

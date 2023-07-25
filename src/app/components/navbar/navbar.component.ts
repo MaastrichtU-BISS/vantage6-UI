@@ -16,7 +16,7 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
 })
 export class NavbarComponent implements AfterViewInit {
   loggedin_user: User = getEmptyUser();
-  useSimpleLayout = false;
+  useFullLayout = false;
   isMobile = false;
 
   @ViewChild(MatSidenav)
@@ -35,8 +35,16 @@ export class NavbarComponent implements AfterViewInit {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        this.useSimpleLayout =
-          !!route.root.firstChild?.snapshot.data['simpleLayout'];
+        const previousLayout = this.useFullLayout;
+        this.useFullLayout =
+          !!route.root.firstChild?.snapshot.data['fullLayout'];
+        if (previousLayout !== this.useFullLayout) {
+          setTimeout(() => {
+            this.handleSideNavChange(
+              this.observer.isMatched('(max-width: 800px)')
+            );
+          }, 1);
+        }
       });
     this.userPermission.isInitialized().subscribe((ready) => {
       if (ready) {
@@ -50,17 +58,20 @@ export class NavbarComponent implements AfterViewInit {
       .observe(['(max-width: 800px)'])
       .pipe(delay(1))
       .subscribe((res) => {
-        if (res.matches) {
-          this.isMobile = true;
-          this.sidenav?.close();
-        } else {
-          this.isMobile = false;
-          this.sidenav?.open();
-        }
+        this.handleSideNavChange(res.matches);
       });
   }
 
   logout(): void {
     this.signOutService.signOut();
+  }
+
+  handleSideNavChange(mobile: boolean) {
+    this.isMobile = mobile;
+    if (mobile) {
+      this.sidenav?.close();
+    } else {
+      this.sidenav?.open();
+    }
   }
 }

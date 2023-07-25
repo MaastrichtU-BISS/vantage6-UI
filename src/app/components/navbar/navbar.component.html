@@ -14,7 +14,7 @@
 
 <mat-sidenav-container
   class="sidenav-container"
-  *ngIf="!useSimpleLayout; else simpleLayout"
+  *ngIf="!useFullLayout; else fullLayout"
 >
   <mat-sidenav #sidenav="matSidenav" [mode]="isMobile ? 'over' : 'side'">
     <!-- Link to home page -->
@@ -229,6 +229,6 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<ng-template #simpleLayout>
+<ng-template #fullLayout>
   <router-outlet></router-outlet>
 </ng-template>

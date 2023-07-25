@@ -68,7 +68,7 @@ const routes: Routes = [
   {
     path: 'tiles',
     component: HomeTilesComponent,
-    data: { requiresLogin: true, simpleLayout: true },
+    data: { requiresLogin: true, fullLayout: true },
     canActivate: [AccessGuard],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
