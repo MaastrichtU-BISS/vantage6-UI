@@ -1,9 +1,5 @@
 <mat-toolbar>
-  <button
-    mat-icon-button
-    *ngIf="isViewInitialized && sidenav?.mode === 'over'"
-    (click)="sidenav.toggle()"
-  >
+  <button mat-icon-button *ngIf="isMobile" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
@@ -20,7 +16,7 @@
   class="sidenav-container"
   *ngIf="!useSimpleLayout; else simpleLayout"
 >
-  <mat-sidenav #sidenav="matSidenav">
+  <mat-sidenav #sidenav="matSidenav" [mode]="isMobile ? 'over' : 'side'">
     <!-- Link to home page -->
     <button
       mat-button

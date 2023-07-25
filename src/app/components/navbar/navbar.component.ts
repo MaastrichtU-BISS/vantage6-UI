@@ -17,7 +17,7 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
 export class NavbarComponent implements AfterViewInit {
   loggedin_user: User = getEmptyUser();
   useSimpleLayout = false;
-  isViewInitialized = false;
+  isMobile = false;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -50,18 +50,13 @@ export class NavbarComponent implements AfterViewInit {
       .observe(['(max-width: 800px)'])
       .pipe(delay(1))
       .subscribe((res) => {
-        if (!this.sidenav) {
-          this.isViewInitialized = true;
-          return;
-        }
         if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
+          this.isMobile = true;
+          this.sidenav?.close();
         } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
+          this.isMobile = false;
+          this.sidenav?.open();
         }
-        this.isViewInitialized = true;
       });
   }
 
