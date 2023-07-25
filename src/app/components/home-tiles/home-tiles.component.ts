@@ -4,6 +4,9 @@ import { Collaboration } from 'src/app/interfaces/collaboration';
 import { EMPTY_USER, User } from 'src/app/interfaces/user';
 import { allPages } from 'src/app/interfaces/utils';
 import { CollabDataService } from 'src/app/services/data/collab-data.service';
+import { environment } from 'src/environments/environment';
+import packageJson from '../../../../package.json';
+import { VersionApiService } from 'src/app/services/api/version-api.service';
 
 @Component({
   selector: 'app-home-tiles',
@@ -11,27 +14,32 @@ import { CollabDataService } from 'src/app/services/data/collab-data.service';
   styleUrls: ['./home-tiles.component.scss'],
 })
 export class HomeTilesComponent implements OnInit {
-  loggedin_user: User = EMPTY_USER;
+  api_url = environment.api_url;
+  version: string = packageJson.version;
+  server_version: string = '...';
+  user: User = EMPTY_USER;
   collaborations: Collaboration[] = [];
 
   constructor(
     public userPermission: UserPermissionService,
+    private versionApiService: VersionApiService,
     private collabDataService: CollabDataService
   ) {}
 
   ngOnInit(): void {
     this.userPermission.isInitialized().subscribe((ready: boolean) => {
       if (ready) {
-        this.loggedin_user = this.userPermission.user;
+        this.user = this.userPermission.user;
         this.initData();
       }
     });
   }
 
   async initData() {
+    this.server_version = await this.versionApiService.getVersion();
     (
       await this.collabDataService.org_list(
-        this.loggedin_user.organization_id,
+        this.user.organization_id,
         true,
         allPages()
       )

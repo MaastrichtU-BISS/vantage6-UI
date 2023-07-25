@@ -1,13 +1,22 @@
-<div class="container">
-  <h2>Choose a collaboration</h2>
-  <div class="tile-container">
-    <mat-card
-      class="tile"
-      [routerLink]="['/home']"
-      *ngFor="let collaboration of collaborations"
-    >
-      <mat-icon>train</mat-icon>
-      <span>{{ collaboration.name }}</span>
-    </mat-card>
-  </div>
+<div class="home-container">
+  <mat-card>
+    <h2>Welcome</h2>
+    <p>
+      You are using User Interface (UI) version {{ version }} and vantage6
+      server <b>{{ api_url }}</b> version {{ server_version }}.
+    </p>
+  </mat-card>
+  <mat-card>
+    <h3>Choose a collaboration</h3>
+    <div class="tile-container">
+      <div
+        class="tile"
+        [routerLink]="['/home']"
+        *ngFor="let collaboration of collaborations"
+      >
+        <mat-icon>train</mat-icon>
+        <span>{{ collaboration.name }}</span>
+      </div>
+    </div>
+  </mat-card>
 </div>

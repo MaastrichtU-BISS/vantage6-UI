@@ -1,6 +1,16 @@
 @use "src/app/shared/scss/variables" as v;
 @use "@angular/material" as mat;
 
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  mat-card {
+    width: 100%;
+  }
+}
+
 .tile-container {
   display: flex;
   margin-top: 16px;
@@ -17,6 +27,9 @@
   padding: 16px;
   cursor: pointer;
   transition: background-color 50ms ease-in-out;
+  border: 1px solid #144175;
+  border-radius: 4px;
+  color: #144175;
 
   .mat-icon {
     font-size: 48px;
@@ -26,6 +39,6 @@
 
   &:hover {
     background-color: #f1f7fb;
-    @include mat.elevation(3);
+    @include mat.elevation(1);
   }
 }

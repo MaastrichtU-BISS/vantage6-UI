@@ -13,6 +13,7 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
+  host: { '[class.full-layout]': 'useFullLayout' },
 })
 export class NavbarComponent implements AfterViewInit {
   loggedin_user: User = getEmptyUser();
