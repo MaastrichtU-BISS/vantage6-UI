@@ -16,11 +16,8 @@ mat-toolbar {
   .logo {
     height: $toolbar_height * 0.8;
     margin-left: 16px;
+    margin-right: auto;
     margin-top: 10px;
-  }
-
-  .spacer {
-    flex: 1 1 auto;
   }
 }
 
