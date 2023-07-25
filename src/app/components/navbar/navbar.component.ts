@@ -1,7 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { delay } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { delay, filter } from 'rxjs/operators';
 
 import { UserPermissionService } from 'src/app/auth/services/user-permission.service';
 import { getEmptyUser, User } from 'src/app/interfaces/user';
@@ -13,13 +14,17 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements AfterViewInit {
   loggedin_user: User = getEmptyUser();
+  useSimpleLayout = false;
+  isViewInitialized = false;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
   constructor(
+    router: Router,
+    route: ActivatedRoute,
     private observer: BreakpointObserver,
     public userPermission: UserPermissionService,
     private signOutService: SignOutService,
@@ -27,6 +32,12 @@ export class NavbarComponent implements OnInit {
     // component, so KEEP IT (even though not doing anything else with it here)
     private socketioMessageService: SocketioMessageService
   ) {
+    router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.useSimpleLayout =
+          !!route.root.firstChild?.snapshot.data['simpleLayout'];
+      });
     this.userPermission.isInitialized().subscribe((ready) => {
       if (ready) {
         this.loggedin_user = this.userPermission.user;
@@ -34,13 +45,15 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   ngAfterViewInit() {
     this.observer
       .observe(['(max-width: 800px)'])
       .pipe(delay(1))
       .subscribe((res) => {
+        if (!this.sidenav) {
+          this.isViewInitialized = true;
+          return;
+        }
         if (res.matches) {
           this.sidenav.mode = 'over';
           this.sidenav.close();
@@ -48,6 +61,7 @@ export class NavbarComponent implements OnInit {
           this.sidenav.mode = 'side';
           this.sidenav.open();
         }
+        this.isViewInitialized = true;
       });
   }
 

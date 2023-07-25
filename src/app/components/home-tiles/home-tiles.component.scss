@@ -1,0 +1,31 @@
+@use "src/app/shared/scss/variables" as v;
+@use "@angular/material" as mat;
+
+.tile-container {
+  display: flex;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.tile {
+  flex-grow: 1;
+  min-width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: background-color 50ms ease-in-out;
+
+  .mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  &:hover {
+    background-color: #f1f7fb;
+    @include mat.elevation(3);
+  }
+}
