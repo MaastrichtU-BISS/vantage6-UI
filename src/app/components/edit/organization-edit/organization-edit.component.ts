@@ -14,6 +14,7 @@ import { OrgDataService } from 'src/app/services/data/org-data.service';
 import { BaseEditComponent } from 'src/app/components/edit/base-edit/base-edit.component';
 import { UserPermissionService } from 'src/app/auth/services/user-permission.service';
 import { FileService } from 'src/app/services/common/file.service';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-organization-edit',
@@ -81,7 +82,7 @@ export class OrganizationEditComponent
     if (org_json === null) {
       this.organization.public_key = old_public_key;
     } else {
-      this.router.navigate([`/organization/${org_json.id}`]);
+      this.router.navigate([routePaths.organization[0], org_json.id]);
     }
   }
 

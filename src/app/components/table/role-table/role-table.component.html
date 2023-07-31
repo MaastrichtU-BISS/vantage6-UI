@@ -11,12 +11,11 @@
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownOrgs">
           <button ngbDropdownItem
-                [routerLink]="['/roles']">
+                [routerLink]="[routes.roles]">
               All
             </button>
           <div *ngFor="let org of organizations">
-            <button ngbDropdownItem
-                [routerLink]="['/roles', org.id]">
+            <button ngbDropdownItem [routerLink]="[routes.rolesForOrganization[0], org.id]">
               {{org.name}}
             </button>
           </div>
@@ -27,14 +26,14 @@
   <div *ngIf="userPermission.hasPermission('create', 'role', '*')" class="inline">
     <div *ngIf="isShowingSingleOrg() || !userPermission.hasPermission('create', 'role', 'global'); else createAnyOrgBlock" class="inline">
       <button mat-button class="btn btn-dflt btn-right"
-          [routerLink]="['/role/create', route_org_id]">
+          [routerLink]="[routes.roleCreateForOrganization[0], route_org_id]">
         <mat-icon>add_circle</mat-icon>
         <span>New role</span>
       </button>
     </div>
     <ng-template #createAnyOrgBlock>
       <button mat-button class="btn btn-dflt btn-right"
-          [routerLink]="['/role/create']">
+          [routerLink]="[routes.roleCreate]">
         <mat-icon>add_circle</mat-icon>
         <span>New role</span>
       </button>

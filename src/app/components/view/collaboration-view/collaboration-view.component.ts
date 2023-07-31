@@ -28,6 +28,7 @@ import { BaseViewComponent } from '../base-view/base-view.component';
 import { TaskDataService } from 'src/app/services/data/task-data.service';
 import { OrgDataService } from 'src/app/services/data/org-data.service';
 import { allPages } from 'src/app/interfaces/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-collaboration-view',
@@ -43,6 +44,7 @@ export class CollaborationViewComponent
 {
   @Input() collaboration: Collaboration = EMPTY_COLLABORATION;
   @Output() createdNode = new EventEmitter<Node>();
+  routes = routePaths;
   orgs_without_nodes: OrganizationInCollaboration[] = [];
   tasks: Task[] = [];
   n_completed_tasks: number = 0;
@@ -169,7 +171,7 @@ export class CollaborationViewComponent
   }
 
   goToOrg(org: OrganizationInCollaboration): void {
-    this.router.navigate([`organization/${org.id}`]);
+    this.router.navigate([`${routePaths.organization[0]}/${org.id}`]);
   }
 
   createNode(org: OrganizationInCollaboration): void {

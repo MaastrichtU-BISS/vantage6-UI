@@ -5,8 +5,11 @@
   </button>
   <img class="logo" src="../assets/images/vantage6_logo.png" />
   <div class="actions">
-    <button mat-stroked-button [routerLink]="['/settings/home']">
-      Settings
+    <button *ngIf="!isGlobalSetting" mat-stroked-button [routerLink]="[routes.homeSettings]">
+      Administration
+    </button>
+    <button *ngIf="isGlobalSetting" mat-stroked-button [routerLink]="[routes.start]">
+      Leave administration
     </button>
     <button
       mat-mini-fab
@@ -35,7 +38,7 @@
       <button
         mat-button
         class="menu-button"
-        routerLink="/home"
+        [routerLink]="[routes.homeCollaboration]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>home</mat-icon>
@@ -46,7 +49,7 @@
       <button
         mat-button
         class="menu-button"
-        routerLink="/settings/home"
+        [routerLink]="[routes.homeSettings]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>home</mat-icon>
@@ -63,13 +66,15 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/organization', loggedin_user.organization_id]"
+        [routerLink]="[routes.organization[0], loggedin_user.organization_id]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>location_city</mat-icon>
         <span>Organization</span>
       </button>
     </ng-container>
+    
+    <!-- Link to collaboration page -->
     <ng-container
       *ngIf="
         isGlobalSetting &&
@@ -80,7 +85,7 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/collaborations']"
+        [routerLink]="[routes.collaborations]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>train</mat-icon>
@@ -97,7 +102,7 @@
         <button
           mat-button
           class="menu-button"
-          [routerLink]="['/collaborations', loggedin_user.organization_id]"
+          [routerLink]="[routes.collaborationsForOrganization[0], loggedin_user.organization_id]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>train</mat-icon>
@@ -117,7 +122,7 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/roles']"
+        [routerLink]="[routes.roles]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>roller_skating</mat-icon>
@@ -134,7 +139,7 @@
         <button
           mat-button
           class="menu-button"
-          [routerLink]="['/roles', loggedin_user.organization_id]"
+          [routerLink]="[routes.rolesForOrganization[0], loggedin_user.organization_id]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>roller_skating</mat-icon>
@@ -154,7 +159,7 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/users']"
+        [routerLink]="[routes.users]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>people</mat-icon>
@@ -171,7 +176,7 @@
         <button
           mat-button
           class="menu-button"
-          [routerLink]="['/users', loggedin_user.organization_id]"
+          [routerLink]="[routes.usersForOrganization[0], loggedin_user.organization_id]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>people</mat-icon>
@@ -218,36 +223,39 @@
     </ng-template>
 
     <!-- Link to task page -->
-    <ng-container
-      *ngIf="
-        userPermission.hasPermission('view', 'task', 'global');
-        else orgTaskLink
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="['/tasks']"
-        routerLinkActive="menu-is-active"
+    <ng-container *ngIf="isGlobalSetting">
+      <ng-container
+        *ngIf="
+          userPermission.hasPermission('view', 'task', 'global');
+          else orgTaskLink
+        "
       >
-        <mat-icon>science</mat-icon>
-        <span>Tasks</span>
-      </button>
-    </ng-container>
-    <ng-template #orgTaskLink>
-      <div *ngIf="userPermission.hasPermission('view', 'task', 'organization')">
         <button
           mat-button
           class="menu-button"
-          [routerLink]="['/tasks/org', loggedin_user.organization_id]"
+          [routerLink]="[routes.tasks]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>science</mat-icon>
           <span>Tasks</span>
         </button>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #orgTaskLink>
+        <div *ngIf="userPermission.hasPermission('view', 'task', 'organization')">
+          <button
+            mat-button
+            class="menu-button"
+            [routerLink]="[routes.tasksPerOrganization[0], loggedin_user.organization_id]"
+            routerLinkActive="menu-is-active"
+          >
+            <mat-icon>science</mat-icon>
+            <span>Tasks</span>
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
 
+    <!-- Link to event page -->
     <ng-container *ngIf="userPermission.hasPermission('view', 'event', '*')">
       <mat-divider></mat-divider>
       <button

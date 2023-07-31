@@ -12,6 +12,7 @@ import {
   defaultFirstPage,
 } from 'src/app/interfaces/utils';
 import { RoleApiService } from 'src/app/services/api/role-api.service';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-role-table',
@@ -22,13 +23,11 @@ import { RoleApiService } from 'src/app/services/api/role-api.service';
     './role-table.component.scss',
   ],
 })
-export class RoleTableComponent
-  extends TableComponent
-  implements OnInit, AfterViewInit
+export class RoleTableComponent extends TableComponent implements OnInit, AfterViewInit
 {
+  routes = routePaths;
   show_default_roles: boolean = true;
   roles_without_defaults: RoleWithOrg[] = [];
-
   displayedColumns: string[] = ['id', 'name', 'organization', 'description'];
 
   constructor(

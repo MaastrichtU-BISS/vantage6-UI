@@ -10,6 +10,7 @@ import { RuleDataService } from 'src/app/services/data/rule-data.service';
 import { RoleDataService } from 'src/app/services/data/role-data.service';
 import { allPages } from 'src/app/interfaces/utils';
 import { getIdsFromArray, removeMatchedIdsFromArray } from 'src/app/shared/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-user-view',
@@ -20,6 +21,7 @@ import { getIdsFromArray, removeMatchedIdsFromArray } from 'src/app/shared/utils
   ],
 })
 export class UserViewComponent extends BaseViewComponent implements OnInit {
+  routes = routePaths;
   @Input() user: User = getEmptyUser();
 
   constructor(

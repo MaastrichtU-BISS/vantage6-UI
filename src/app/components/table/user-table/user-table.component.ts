@@ -11,6 +11,7 @@ import {
   allPages,
   defaultFirstPage,
 } from 'src/app/interfaces/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-user-table',
@@ -22,6 +23,7 @@ import {
   ],
 })
 export class UserTableComponent extends TableComponent implements OnInit {
+  routes = routePaths;
   displayedColumns: string[] = [
     'id',
     'username',

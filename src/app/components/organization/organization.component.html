@@ -6,16 +6,14 @@
         <button class="btn btn-dropdown" id="dropdownOrgs" ngbDropdownToggle>{{current_organization.name}}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownOrgs">
           <div *ngFor="let org of organizations">
-            <button ngbDropdownItem
-                    [routerLink]="['/organization', org.id]">
+            <button ngbDropdownItem [routerLink]="[routes.organization[0], org.id]">
               {{org.name}}
             </button>
           </div>
         </div>
       </div>
       <div *ngIf="userPermission.hasPermission('create', 'organization', 'global')" class="inline">
-        <button mat-button class="btn btn-dflt btn-right" id="new_org_button"
-                [routerLink]="['/organization', 'create']">
+        <button mat-button class="btn btn-dflt btn-right" id="new_org_button" [routerLink]="[routes.organizationCreate]">
           <mat-icon>add_circle</mat-icon>
           <span>New organization</span>
         </button>
@@ -42,7 +40,7 @@
         <button *ngIf="userPermission.can('edit', 'organization', current_organization.id)"
                 mat-button class="btn-edit"
                 (click)="editOrganization(current_organization)"
-                [routerLink]="['/organization', current_organization.id, 'edit']">
+                [routerLink]="[routes.organizationEdit[0], current_organization.id, routes.organizationEdit[1]]">
           Edit
         </button>
       </mat-card>
@@ -51,7 +49,7 @@
         <h4>Collaborations</h4>
         <div *ngIf="userPermission.hasPermission('create', 'collaboration', 'global')" class="inline">
           <button mat-button class="btn btn-dflt btn-right"
-                  [routerLink]="['/collaboration', 'create']">
+                  [routerLink]="[routes.collaborationCreate]">
             <mat-icon>add_circle</mat-icon>
             <span>New collaboration</span>
           </button>
@@ -76,7 +74,7 @@
           </div>
           <button mat-button class="btn btn-dflt btn-top-margin"
             *ngIf="collaborations.length > MAX_ITEMS_DISPLAY"
-            [routerLink]="['/collaborations', current_organization.id]"
+            [routerLink]="[routes.collaborationsForOrganization[0], current_organization.id]"
             >
               View all collaborations
           </button>
@@ -87,7 +85,7 @@
         <h4>Roles</h4>
         <div *ngIf="userPermission.can('create', 'role', current_organization.id)" class="inline">
           <button mat-button class="btn btn-dflt btn-right"
-                  [routerLink]="['/role', 'create', current_organization.id]">
+                  [routerLink]="[routes.roleCreateForOrganization[0], current_organization.id]">
             <mat-icon>add_circle</mat-icon>
             <span>New role</span>
           </button>
@@ -116,7 +114,7 @@
           </div>
           <button mat-button class="btn btn-dflt btn-top-margin"
             *ngIf="roles.length > MAX_ITEMS_DISPLAY"
-            [routerLink]="['/roles', current_organization.id]"
+            [routerLink]="[routes.rolesForOrganization[0], current_organization.id]"
             >
               View all roles
           </button>
@@ -129,7 +127,7 @@
         <h4>Users</h4>
         <div *ngIf="userPermission.can('create', 'user', current_organization.id)" class="inline">
           <button mat-button class="btn btn-dflt btn-right"
-                  [routerLink]="['/user', 'create', current_organization.id]">
+                  [routerLink]="[routes.userCreateForOrganization[0], current_organization.id]">
             <mat-icon>add_circle</mat-icon>
             <span>New user</span>
           </button>
@@ -169,7 +167,7 @@
         </div>
         <button mat-button class="btn btn-dflt btn-top-margin"
           *ngIf="users.length > MAX_ITEMS_DISPLAY"
-          [routerLink]="['/users', current_organization.id]"
+          [routerLink]="[routes.usersForOrganization[0], current_organization.id]"
           >
             View all users
         </button>

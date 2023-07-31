@@ -10,6 +10,7 @@ import { RuleDataService } from 'src/app/services/data/rule-data.service';
 import { UserDataService } from 'src/app/services/data/user-data.service';
 import { ResType } from 'src/app/shared/enum';
 import { BaseViewComponent } from '../base-view/base-view.component';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-role-view',
@@ -24,6 +25,7 @@ export class RoleViewComponent
   implements OnInit, OnChanges
 {
   @Input() role: RoleWithOrg = getEmptyRole();
+  routes = routePaths;
   users_with_this_role: User[] = [];
 
   constructor(

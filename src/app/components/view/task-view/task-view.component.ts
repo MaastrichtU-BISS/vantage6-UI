@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { allPages } from 'src/app/interfaces/utils';
 import { getIdsFromArray } from 'src/app/shared/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-task-view',
@@ -28,6 +29,7 @@ export class TaskViewComponent
 {
   @Input() task: Task = getEmptyTask();
   @Input() org_id: number = -1;
+  routes = routePaths;
   runs: Run[] = [];
 
   constructor(

@@ -7,6 +7,7 @@ import { CollabDataService } from 'src/app/services/data/collab-data.service';
 import { environment } from 'src/environments/environment';
 import packageJson from '../../../../package.json';
 import { VersionApiService } from 'src/app/services/api/version-api.service';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-start',
@@ -14,6 +15,7 @@ import { VersionApiService } from 'src/app/services/api/version-api.service';
   styleUrls: ['./start.component.scss'],
 })
 export class StartComponent implements OnInit {
+  routes = routePaths;
   api_url = environment.api_url;
   version: string = packageJson.version;
   server_version: string = '...';

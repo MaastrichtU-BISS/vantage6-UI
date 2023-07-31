@@ -47,7 +47,7 @@
     <td>Organization:</td>
     <td>
       <button mat-button class="btn-link inline"
-          [routerLink]="['/organization', user.organization_id]">
+          [routerLink]="[routes.organization[0], user.organization_id]">
         {{user.organization.name}}
       </button>
     </td>
@@ -58,7 +58,7 @@
       (user.is_logged_in && userPermission.hasPermission('edit', 'user', 'own'))"
     mat-button class="btn btn-edit inline"
     (click)="edit(user)"
-    [routerLink]="['/user', user.id, 'edit']"
+    [routerLink]="[routes.userEdit[0], user.id, routes.userEdit[1]]"
     >
   Edit
 </button>

@@ -46,7 +46,7 @@
     <td>Tasks</td>
     <td>
       <button mat-button class="btn btn-link inline"
-          [routerLink]="['/tasks/collab', collaboration.id]">
+          [routerLink]="[routes.tasksPerCollaboration[0], collaboration.id]">
         {{n_completed_tasks}} complete / {{tasks.length}} total
       </button>
     </td>
@@ -78,7 +78,7 @@
 <br/>
 <button *ngIf="userPermission.hasPermission('edit', 'collaboration', 'global')"
     mat-button class="btn btn-edit inline"
-    (click)="edit(collaboration)" [routerLink]="['/collaboration', collaboration.id, 'edit']"
+    (click)="edit(collaboration)" [routerLink]="[routes.collaborationEdit[0], collaboration.id, routes.collaborationEdit[1]]"
     >
   Edit
 </button>

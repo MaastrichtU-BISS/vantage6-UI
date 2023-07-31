@@ -28,6 +28,7 @@ import {
   allPages,
   defaultFirstPage,
 } from 'src/app/interfaces/utils';
+import { routePaths } from 'src/app/routes';
 
 export enum TaskInitator {
   ALL = 'All',
@@ -46,6 +47,7 @@ export enum TaskInitator {
   ],
 })
 export class TaskTableComponent extends TableComponent implements OnInit {
+  routes = routePaths;
   collaborations: Collaboration[] = [];
   users: User[] = [];
   rules: Rule[] = [];

@@ -33,6 +33,7 @@ import { CollabDataService } from 'src/app/services/data/collab-data.service';
 import { Collaboration } from 'src/app/interfaces/collaboration';
 import { FileService } from 'src/app/services/common/file.service';
 import { allPages, defaultFirstPage } from 'src/app/interfaces/utils';
+import { routePaths } from '../../routes'
 
 @Component({
   selector: 'app-organization',
@@ -43,6 +44,7 @@ import { allPages, defaultFirstPage } from 'src/app/interfaces/utils';
   ],
 })
 export class OrganizationComponent implements OnInit {
+  routes = routePaths;
   organizations: OrganizationInCollaboration[] = [];
   current_organization: OrganizationInCollaboration = getEmptyOrganization();
   route_org_id: number = this.current_organization.id;
@@ -123,10 +125,7 @@ export class OrganizationComponent implements OnInit {
           "'",
         'Showing data on your own organization instead!',
       ]);
-      this.router.navigate([
-        'organization',
-        this.loggedin_user.organization_id,
-      ]);
+      this.router.navigate([`${routePaths.organization[0]}`, this.loggedin_user.organization_id,]);
       return;
     }
 

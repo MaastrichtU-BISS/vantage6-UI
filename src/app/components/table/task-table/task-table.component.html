@@ -12,7 +12,7 @@
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownOrgs">
         <button ngbDropdownItem
-              [routerLink]="['/tasks']">
+              [routerLink]="[routes.tasks]">
             All
         </button>
         <div *ngIf="userPermission.hasPermission('view', 'collaboration', '*')">
@@ -20,7 +20,7 @@
           <div class="dropdown-subsection">Collaborations</div>
           <div *ngFor="let col of collaborations">
             <button ngbDropdownItem
-                [routerLink]="['/tasks/collab', col.id]">
+                [routerLink]="[routes.tasksPerCollaboration[0], col.id]">
               {{col.name}}
             </button>
           </div>
@@ -31,7 +31,7 @@
           <div class="dropdown-subsection">Organizations</div>
           <div *ngFor="let org of organizations">
             <button ngbDropdownItem
-                [routerLink]="['/tasks/org', org.id]">
+                [routerLink]="[routes.tasksPerCollaboration[0], org.id]">
               {{org.name}}
             </button>
           </div>

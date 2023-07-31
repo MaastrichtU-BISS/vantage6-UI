@@ -6,6 +6,7 @@ import { delay, filter } from 'rxjs/operators';
 
 import { UserPermissionService } from 'src/app/auth/services/user-permission.service';
 import { getEmptyUser, User } from 'src/app/interfaces/user';
+import { routePaths } from 'src/app/routes';
 import { SignOutService } from 'src/app/services/common/sign-out.service';
 import { SocketioMessageService } from 'src/app/services/common/socketio-message.service';
 
@@ -16,6 +17,7 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
   host: { '[class.full-layout]': 'useFullLayout' },
 })
 export class NavbarComponent implements AfterViewInit {
+  routes = routePaths;
   loggedin_user: User = getEmptyUser();
   useFullLayout: boolean = false;
   isGlobalSetting: boolean = false;

@@ -28,7 +28,7 @@
     <td>Organization:</td>
     <td>
       <button mat-button class="btn btn-link"
-          [routerLink]="['/organization', node.organization.id]">
+          [routerLink]="[routes.organization[0], node.organization.id]">
         {{node.organization.name}}
       </button>
     </td>
@@ -37,7 +37,7 @@
     <td>Collaboration:</td>
     <td>
       <button mat-button class="btn btn-link"
-          [routerLink]="['/collaboration', node.collaboration.id, node.organization_id]">
+          [routerLink]="[routes.collaboration[0], node.organization_id, node.collaboration.id]">
         {{node.collaboration.name}}
       </button>
     </td>

@@ -9,6 +9,7 @@ import { ExitMode } from 'src/app/shared/enum';
 import { environment } from 'src/environments/environment';
 import { BaseViewComponent } from '../base-view/base-view.component';
 import { dictEmpty } from 'src/app/shared/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-node-view',
@@ -20,6 +21,7 @@ import { dictEmpty } from 'src/app/shared/utils';
 })
 export class NodeViewComponent extends BaseViewComponent implements OnInit {
   @Input() node: NodeWithOrg = getEmptyNode();
+  routes = routePaths;
 
   constructor(
     protected nodeApiService: NodeApiService,

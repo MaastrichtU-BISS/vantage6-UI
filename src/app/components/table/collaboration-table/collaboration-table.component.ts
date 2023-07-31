@@ -7,6 +7,7 @@ import { ModalService } from 'src/app/services/common/modal.service';
 import { CollabDataService } from 'src/app/services/data/collab-data.service';
 import { TableComponent } from '../base-table/table.component';
 import { Pagination, defaultFirstPage } from 'src/app/interfaces/utils';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-collaboration-table',
@@ -21,6 +22,7 @@ export class CollaborationTableComponent
   extends TableComponent
   implements OnInit
 {
+  routes = routePaths;
   displayedColumns: string[] = ['id', 'name', 'organizations', 'encrypted'];
 
   constructor(
