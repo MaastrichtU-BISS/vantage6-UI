@@ -78,7 +78,7 @@ import { MfaLostComponent } from './components/login/mfa-lost/mfa-lost.component
 import { MfaRecoverComponent } from './components/login/mfa-recover/mfa-recover.component';
 import { TaskCreateComponent } from './components/edit/task-create/task-create.component';
 import { ModalCreateComponent } from './components/modal/modal-create/modal-create.component';
-import { HomeTilesComponent } from './components/home-tiles/home-tiles.component';
+import { StartComponent } from './components/start/start.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +126,7 @@ import { HomeTilesComponent } from './components/home-tiles/home-tiles.component
     MfaRecoverComponent,
     TaskCreateComponent,
     ModalCreateComponent,
-    HomeTilesComponent,
+    StartComponent,
   ],
   imports: [
     BrowserModule,

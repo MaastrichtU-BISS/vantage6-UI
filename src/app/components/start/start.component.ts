@@ -9,11 +9,11 @@ import packageJson from '../../../../package.json';
 import { VersionApiService } from 'src/app/services/api/version-api.service';
 
 @Component({
-  selector: 'app-home-tiles',
-  templateUrl: './home-tiles.component.html',
-  styleUrls: ['./home-tiles.component.scss'],
+  selector: 'app-start',
+  templateUrl: './start.component.html',
+  styleUrls: ['./start.component.scss'],
 })
-export class HomeTilesComponent implements OnInit {
+export class StartComponent implements OnInit {
   api_url = environment.api_url;
   version: string = packageJson.version;
   server_version: string = '...';

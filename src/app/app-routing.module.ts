@@ -28,7 +28,7 @@ import { NodeSingleViewComponent } from './components/view-single/node-single-vi
 import { LoginPageComponent } from './components/login/login-page/login-page.component';
 import { TaskCreateComponent } from './components/edit/task-create/task-create.component';
 import { SocketMessagesComponent } from './components/table/socket-messages/socket-messages.component';
-import { HomeTilesComponent } from './components/home-tiles/home-tiles.component';
+import { StartComponent } from './components/start/start.component';
 
 const routes: Routes = [
   {
@@ -66,12 +66,23 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
-    path: 'tiles',
-    component: HomeTilesComponent,
+    path: 'start',
+    component: StartComponent,
     data: { requiresLogin: true, fullLayout: true },
     canActivate: [AccessGuard],
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'settings',
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+        data: { requiresLogin: true },
+        canActivate: [AccessGuard],
+      },
+    ],
+  },
+  { path: '', redirectTo: '/start', pathMatch: 'full' },
   {
     path: 'profile',
     component: ProfileComponent,

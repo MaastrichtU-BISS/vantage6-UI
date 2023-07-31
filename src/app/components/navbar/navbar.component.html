@@ -5,11 +5,13 @@
   </button>
   <img class="logo" src="../assets/images/vantage6_logo.png" />
   <div class="actions">
-    <button mat-stroked-button [routerLink]="['/settings']">Settings</button>
+    <button mat-stroked-button [routerLink]="['/settings/home']">
+      Settings
+    </button>
     <button
       mat-mini-fab
       color="primary"
-      class="mat-elevation-z"
+      class="mat-elevation-z0"
       mat-button
       [matMenuTriggerFor]="menu"
     >
@@ -29,16 +31,35 @@
 >
   <mat-sidenav #sidenav="matSidenav" [mode]="isMobile ? 'over' : 'side'">
     <!-- Link to home page -->
-    <button
-      mat-button
-      class="menu-button"
-      routerLink="/home"
-      routerLinkActive="menu-is-active"
+    <ng-container *ngIf="!isGlobalSetting">
+      <button
+        mat-button
+        class="menu-button"
+        routerLink="/home"
+        routerLinkActive="menu-is-active"
+      >
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+    </ng-container>
+    <ng-container *ngIf="isGlobalSetting">
+      <button
+        mat-button
+        class="menu-button"
+        routerLink="/settings/home"
+        routerLinkActive="menu-is-active"
+      >
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+    </ng-container>
+    <!-- Link to organization page -->
+    <ng-container
+      *ngIf="
+        isGlobalSetting &&
+        userPermission.hasPermission('view', 'organization', '*')
+      "
     >
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
-    </button>
-    <div *ngIf="userPermission.hasPermission('view', 'organization', '*')">
       <button
         mat-button
         class="menu-button"
@@ -48,12 +69,11 @@
         <mat-icon>location_city</mat-icon>
         <span>Organization</span>
       </button>
-    </div>
-
-    <!-- Link to organization page -->
-    <div
+    </ng-container>
+    <ng-container
       *ngIf="
-        userPermission.hasPermission('view', 'collaboration', 'global');
+        isGlobalSetting &&
+          userPermission.hasPermission('view', 'collaboration', 'global');
         else orgCollabLink
       "
     >
@@ -66,10 +86,11 @@
         <mat-icon>train</mat-icon>
         <span>Collaborations</span>
       </button>
-    </div>
+    </ng-container>
     <ng-template #orgCollabLink>
       <div
         *ngIf="
+          isGlobalSetting &&
           userPermission.hasPermission('view', 'collaboration', 'organization')
         "
       >
@@ -86,9 +107,10 @@
     </ng-template>
 
     <!-- Link to role page -->
-    <div
+    <ng-container
       *ngIf="
-        userPermission.hasPermission('view', 'role', 'global');
+        isGlobalSetting &&
+          userPermission.hasPermission('view', 'role', 'global');
         else orgRoleLink
       "
     >
@@ -101,9 +123,14 @@
         <mat-icon>roller_skating</mat-icon>
         <span>Roles</span>
       </button>
-    </div>
+    </ng-container>
     <ng-template #orgRoleLink>
-      <div *ngIf="userPermission.hasPermission('view', 'role', 'organization')">
+      <div
+        *ngIf="
+          isGlobalSetting &&
+          userPermission.hasPermission('view', 'role', 'organization')
+        "
+      >
         <button
           mat-button
           class="menu-button"
@@ -117,9 +144,10 @@
     </ng-template>
 
     <!-- Link to user page -->
-    <div
+    <ng-container
       *ngIf="
-        userPermission.hasPermission('view', 'user', 'global');
+        isGlobalSetting &&
+          userPermission.hasPermission('view', 'user', 'global');
         else orgUserLink
       "
     >
@@ -132,9 +160,14 @@
         <mat-icon>people</mat-icon>
         <span>Users</span>
       </button>
-    </div>
+    </ng-container>
     <ng-template #orgUserLink>
-      <div *ngIf="userPermission.hasPermission('view', 'user', 'organization')">
+      <div
+        *ngIf="
+          isGlobalSetting &&
+          userPermission.hasPermission('view', 'user', 'organization')
+        "
+      >
         <button
           mat-button
           class="menu-button"
@@ -148,9 +181,10 @@
     </ng-template>
 
     <!-- Link to node page -->
-    <div
+    <ng-container
       *ngIf="
-        userPermission.hasPermission('view', 'node', 'global');
+        !isGlobalSetting &&
+          userPermission.hasPermission('view', 'node', 'global');
         else orgNodeLink
       "
     >
@@ -163,9 +197,14 @@
         <mat-icon>data_object</mat-icon>
         <span>Nodes</span>
       </button>
-    </div>
+    </ng-container>
     <ng-template #orgNodeLink>
-      <div *ngIf="userPermission.hasPermission('view', 'node', 'organization')">
+      <div
+        *ngIf="
+          !isGlobalSetting &&
+          userPermission.hasPermission('view', 'node', 'organization')
+        "
+      >
         <button
           mat-button
           class="menu-button"
@@ -179,7 +218,7 @@
     </ng-template>
 
     <!-- Link to task page -->
-    <div
+    <ng-container
       *ngIf="
         userPermission.hasPermission('view', 'task', 'global');
         else orgTaskLink
@@ -194,7 +233,7 @@
         <mat-icon>science</mat-icon>
         <span>Tasks</span>
       </button>
-    </div>
+    </ng-container>
     <ng-template #orgTaskLink>
       <div *ngIf="userPermission.hasPermission('view', 'task', 'organization')">
         <button
@@ -209,7 +248,7 @@
       </div>
     </ng-template>
 
-    <ng-template *ngIf="userPermission.hasPermission('view', 'event', '*')">
+    <ng-container *ngIf="userPermission.hasPermission('view', 'event', '*')">
       <mat-divider></mat-divider>
       <button
         mat-button
@@ -220,7 +259,7 @@
         <mat-icon>message</mat-icon>
         <span>Status updates</span>
       </button>
-    </ng-template>
+    </ng-container>
 
     <!-- TODO add help pages -->
     <!--

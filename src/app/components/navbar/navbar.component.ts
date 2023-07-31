@@ -17,8 +17,9 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
 })
 export class NavbarComponent implements AfterViewInit {
   loggedin_user: User = getEmptyUser();
-  useFullLayout = false;
-  isMobile = false;
+  useFullLayout: boolean = false;
+  isGlobalSetting: boolean = false;
+  isMobile: boolean = false;
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -35,10 +36,13 @@ export class NavbarComponent implements AfterViewInit {
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
+      .subscribe((event) => {
         const previousLayout = this.useFullLayout;
         this.useFullLayout =
           !!route.root.firstChild?.snapshot.data['fullLayout'];
+        this.isGlobalSetting = !!(event as NavigationEnd).url.includes(
+          'settings'
+        );
         if (previousLayout !== this.useFullLayout) {
           setTimeout(() => {
             this.handleSideNavChange(
