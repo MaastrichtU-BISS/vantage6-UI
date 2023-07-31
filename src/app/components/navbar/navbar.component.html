@@ -4,12 +4,23 @@
     <mat-icon *ngIf="sidenav.opened">close</mat-icon>
   </button>
   <img class="logo" src="../assets/images/vantage6_logo.png" />
-
-  <button mat-button class="profile btn-default" [routerLink]="['/profile']">
-    <mat-icon class="profile-icon">person</mat-icon>
-    <span>{{ loggedin_user.username }}</span>
-  </button>
-  <button class="btn-primary" mat-button (click)="logout()">Logout</button>
+  <div class="actions">
+    <button mat-stroked-button [routerLink]="['/settings']">Settings</button>
+    <button
+      mat-mini-fab
+      color="primary"
+      class="mat-elevation-z"
+      mat-button
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div class="name">{{ loggedin_user.username }}</div>
+      <button mat-menu-item [routerLink]="['/profile']">Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container
@@ -198,9 +209,8 @@
       </div>
     </ng-template>
 
-    <mat-divider></mat-divider>
-
-    <div *ngIf="userPermission.hasPermission('view', 'event', '*')">
+    <ng-template *ngIf="userPermission.hasPermission('view', 'event', '*')">
+      <mat-divider></mat-divider>
       <button
         mat-button
         class="menu-button"
@@ -210,7 +220,7 @@
         <mat-icon>message</mat-icon>
         <span>Status updates</span>
       </button>
-    </div>
+    </ng-template>
 
     <!-- TODO add help pages -->
     <!--
@@ -222,7 +232,6 @@
   <mat-sidenav-content>
     <div class="content">
       <div class="container-fluid">
-        <div class="vertical-spacer"></div>
         <router-outlet></router-outlet>
       </div>
     </div>

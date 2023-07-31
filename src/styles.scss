@@ -49,14 +49,13 @@ body {
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
-
 ///// BELOW are styles added MANUALLY ////
 .inline {
   display: inline;
 }
 
 .loading-modal .modal-dialog {
-  max-width: 360px
+  max-width: 360px;
 }
 
 // the following ensures that modal windows are always shown in the foreground
@@ -100,4 +99,12 @@ body {
   color: white;
   border: white;
   margin-left: 20px;
+}
+
+.mat-menu-content {
+  .name {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 16px;
+  }
 }
