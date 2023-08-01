@@ -39,9 +39,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
+        if((event as NavigationEnd).url === routePaths.start) {
+          this.isAdministration = false;
+          sessionStorage.setItem('isAdministration', String(false));
+        }
+
         const previousLayout = this.useFullLayout;
-        this.useFullLayout =
-          !!route.root.firstChild?.snapshot.data['fullLayout'];
+        this.useFullLayout = !!route.root.firstChild?.snapshot.data['fullLayout'];
         if (previousLayout !== this.useFullLayout) {
           setTimeout(() => {
             this.handleSideNavChange(
@@ -62,6 +66,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     if (isAdministration) {
       this.isAdministration = isAdministration  === 'true';
     } else {
+      this.isAdministration = false;
       this.router.navigate([routePaths.start]);
     }
   }
@@ -94,7 +99,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     if(this.isAdministration) {
       this.router.navigate([routePaths.home]);
     } else {
-      this.router.navigate([routePaths.home]);
+      this.router.navigate([routePaths.start]);
     }
   }
 }
