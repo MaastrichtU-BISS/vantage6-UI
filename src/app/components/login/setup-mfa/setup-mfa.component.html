@@ -9,5 +9,5 @@
 
 <qrcode [qrdata]="qr_url" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
 
-<button class="btn btn-primary inline" [routerLink]="['/mfa_code']">I'm done!</button>
+<button class="btn btn-primary inline" [routerLink]="[routes.codeMFA]">I'm done!</button>
 <button class="btn btn-secondary inline" (click)="showOtpCode()">I need help!</button>

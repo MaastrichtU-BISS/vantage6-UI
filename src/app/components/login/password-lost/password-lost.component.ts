@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-password-lost',
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./password-lost.component.scss'],
 })
 export class PasswordLostComponent implements OnInit {
+  routes = routePaths;
   form: any = {
     username: null,
     email: null,

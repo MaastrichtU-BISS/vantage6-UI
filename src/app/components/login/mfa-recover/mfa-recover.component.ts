@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { routePaths } from 'src/app/routes';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -41,7 +42,7 @@ export class MfaRecoverComponent implements OnInit {
           this.authService.qr_uri = data['qr_uri'];
           this.authService.otp_code = data['otp_secret'];
           // after resetting password successfully, go to login page
-          this.router.navigateByUrl('/setup_mfa');
+          this.router.navigate([routePaths.setupMFA]);
         },
         (err) => {
           this.api_call_complete = true;

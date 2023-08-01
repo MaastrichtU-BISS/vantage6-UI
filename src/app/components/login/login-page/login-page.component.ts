@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { routePaths } from 'src/app/routes';
 import { LoginImageService } from 'src/app/services/common/login-image.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { LoginImageService } from 'src/app/services/common/login-image.service';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+  routes = routePaths;
   background_img = '';
 
   constructor(

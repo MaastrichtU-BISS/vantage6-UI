@@ -15,6 +15,7 @@ import {
   allPages,
   defaultFirstPage,
 } from 'src/app/interfaces/utils';
+import { routePaths } from 'src/app/routes';
 
 export enum DisplayMode {
   COL = 'collaboration',
@@ -35,6 +36,7 @@ export class NodeTableComponent
   extends TableComponent
   implements OnInit, AfterViewInit
 {
+  routes = routePaths;
   collaborations: Collaboration[] = [];
   current_collaboration: Collaboration | null;
   displayedColumns: string[] = ['id', 'name', 'organization', 'collaboration'];

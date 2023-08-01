@@ -15,12 +15,12 @@
   <div class="form-group" *ngIf="executed_request">
     <div class="alert alert-success" role="alert">
       {{request_msg}}
-      <button class="btn btn-link" [routerLink]="['/mfa_recover']">
+      <button class="btn btn-link" [routerLink]="[routes.recoverMFA]">
         Enter your reset token
       </button>
     </div>
   </div>
-  <button class="btn btn-link" [routerLink]="['/mfa_recover']">
+  <button class="btn btn-link" [routerLink]="[routes.recoverMFA]">
       I already have a reset token
   </button>
 </form>

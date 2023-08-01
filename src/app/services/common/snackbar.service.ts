@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { routePaths } from 'src/app/routes';
 import { Sentiment } from 'src/app/shared/enum';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class SnackbarService {
 
     // define what happens if users click the button
     sb.onAction().subscribe(() => {
-      this.router.navigate([`/node/${data.id}/view/${data.org_id}`]);
+      this.router.navigate([routePaths.node[0], data.org_id, data.id]);
     });
   }
 
@@ -43,7 +44,7 @@ export class SnackbarService {
     });
 
     sb.onAction().subscribe(() => {
-      this.router.navigate([`/task/view/${task_id}/${organization_id}`]);
+      this.router.navigate([routePaths.task, organization_id, task_id]);
     });
   }
 }

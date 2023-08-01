@@ -11,6 +11,7 @@ import { RuleDataService } from 'src/app/services/data/rule-data.service';
 import { UserDataService } from 'src/app/services/data/user-data.service';
 import { SocketioConnectService } from './socketio-connect.service';
 import { ModalService } from './modal.service';
+import { routePaths } from 'src/app/routes';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class SignOutService {
     this.tokenStorage.signOut();
     this.userPermission.clear();
     this.clearDataServices();
-    this.router.navigateByUrl('/login');
+    this.router.navigate([routePaths.login]);
     this.modalService.closeLoadingModal();
     this.socketService.disconnect();
   }

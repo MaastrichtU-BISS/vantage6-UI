@@ -22,7 +22,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <div class="name">{{ loggedin_user.username }}</div>
-      <button mat-menu-item [routerLink]="['/profile']">Profile</button>
+      <button mat-menu-item [routerLink]="[routes.profile]">Profile</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
   </div>
@@ -196,7 +196,7 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/nodes']"
+        [routerLink]="[routes.nodes]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>data_object</mat-icon>
@@ -213,7 +213,7 @@
         <button
           mat-button
           class="menu-button"
-          [routerLink]="['/nodes/org', loggedin_user.organization_id]"
+          [routerLink]="[routes.nodesPerOrganization[0], loggedin_user.organization_id]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>data_object</mat-icon>
@@ -261,7 +261,7 @@
       <button
         mat-button
         class="menu-button"
-        [routerLink]="['/status-messages']"
+        [routerLink]="[routes.statusMessages]"
         routerLinkActive="menu-is-active"
       >
         <mat-icon>message</mat-icon>

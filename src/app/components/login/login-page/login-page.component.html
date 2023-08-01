@@ -1,25 +1,25 @@
 <div class="background-img" style="background-image: {{getBackgroundImage()}};">
   <div class="col-md-12">
     <div class="card card-container">
-      <div *ngIf="router.url === '/login'">
+      <div *ngIf="router.url === routes.login">
         <app-login></app-login>
       </div>
-      <div *ngIf="router.url === '/password_lost'">
+      <div *ngIf="router.url === routes.passwordLost">
         <app-password-lost></app-password-lost>
       </div>
-      <div *ngIf="router.url === '/password_recover'">
+      <div *ngIf="router.url === routes.passwordRecover">
         <app-password-recover></app-password-recover>
       </div>
-      <div *ngIf="router.url === '/setup_mfa'">
+      <div *ngIf="router.url === routes.setupMFA">
         <app-setup-mfa></app-setup-mfa>
       </div>
-      <div *ngIf="router.url === '/mfa_code'">
+      <div *ngIf="router.url === routes.codeMFA">
         <app-mfa-code></app-mfa-code>
       </div>
-      <div *ngIf="router.url === '/mfa_lost'">
+      <div *ngIf="router.url === routes.lostMFA">
         <app-mfa-lost></app-mfa-lost>
       </div>
-      <div *ngIf="router.url === '/mfa_recover'">
+      <div *ngIf="router.url === routes.recoverMFA">
         <app-mfa-recover></app-mfa-recover>
       </div>
     </div>

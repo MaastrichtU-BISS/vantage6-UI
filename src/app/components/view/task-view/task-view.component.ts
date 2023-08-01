@@ -112,7 +112,7 @@ export class TaskViewComponent
 
   getUserViewRouterLink(): string {
     return this.task.init_user
-      ? `/user/view/${this.task.init_user_id}/${this.task.init_user.organization_id}`
+      ? `${routePaths.user}/${this.task.init_user.organization_id}/${this.task.init_user_id}`
       : '';
   }
 

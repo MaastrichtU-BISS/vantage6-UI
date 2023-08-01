@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { routePaths } from 'src/app/routes';
 import { TokenStorageService } from 'src/app/services/common/token-storage.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,6 +20,7 @@ let BACKGROUND_IMAGES = [
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  routes = routePaths;
   form: any = {
     username: null,
     password: null,
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.router.navigateByUrl('/home');
+      this.router.navigate([routePaths.start]);
     }
     this.background_img = this._pickBackgroundImage();
   }
@@ -58,11 +60,11 @@ export class LoginComponent implements OnInit {
           // user still has to set up two factor authentication
           this.authService.qr_uri = data['qr_uri'];
           this.authService.otp_code = data['otp_secret'];
-          this.router.navigateByUrl('/setup_mfa');
+          this.router.navigate([routePaths.setupMFA]);
         } else if (!('access_token' in data)) {
           // if there is no access token, this means user has to also submit
           // an MFA code
-          this.router.navigateByUrl('/mfa_code');
+          this.router.navigate([routePaths.codeMFA]);
         } else {
           // logged in successfully!
           this._onSuccessfulLogin(data);

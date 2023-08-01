@@ -42,7 +42,7 @@
 
   <div *ngIf="userPermission.hasPermission('create', 'task', '*')" class="inline">
     <button mat-button class="btn btn-dflt btn-right"
-        [routerLink]="['/task/create', userPermission.user.organization_id]">
+        [routerLink]="[routes.taskCreate, userPermission.user.organization_id]">
       <mat-icon>add_circle</mat-icon>
       <span>New task</span>
     </button>

@@ -30,6 +30,7 @@ import { BaseEditComponent } from '../base-edit/base-edit.component';
 import { ExitMode, OpsType, ResType, ScopeType } from 'src/app/shared/enum';
 import { allPages } from 'src/app/interfaces/utils';
 import { Run } from 'src/app/interfaces/run';
+import { routePaths } from 'src/app/routes';
 
 @Component({
   selector: 'app-task-create',
@@ -346,9 +347,7 @@ export class TaskCreateComponent extends BaseEditComponent implements OnInit {
     await this.save(this.task, false);
 
     // go to the page for the task we just created
-    this.router.navigateByUrl(
-      `/task/view/${this.task.id}/${this.logged_in_org_id}`
-    );
+    this.router.navigate([routePaths.task, this.logged_in_org_id, this.task.id]);
   }
 
   alertNodesOffline(offline_nodes: Node[]): void {

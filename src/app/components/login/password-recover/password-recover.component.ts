@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { routePaths } from 'src/app/routes';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -40,7 +41,7 @@ export class PasswordRecoverComponent implements OnInit {
       .subscribe(
         (data) => {
           // after resetting password successfully, go to login page
-          this.router.navigateByUrl('/login');
+          this.router.navigate([routePaths.login]);
         },
         (err) => {
           this.api_call_complete = true;

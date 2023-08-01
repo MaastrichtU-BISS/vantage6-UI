@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { routePaths } from 'src/app/routes';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./mfa-lost.component.scss'],
 })
 export class MfaLostComponent implements OnInit {
+  routes = routePaths;
   form: any = {};
   executed_request = false;
   request_msg: string = '';

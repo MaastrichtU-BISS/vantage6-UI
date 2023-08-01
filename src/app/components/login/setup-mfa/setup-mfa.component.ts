@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { routePaths } from 'src/app/routes';
 import { ModalService } from 'src/app/services/common/modal.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ModalService } from 'src/app/services/common/modal.service';
   styleUrls: ['./setup-mfa.component.scss'],
 })
 export class SetupMfaComponent implements OnInit {
+  routes = routePaths;
   qr_url: string;
   otp_code: string;
 
@@ -21,7 +23,7 @@ export class SetupMfaComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.qr_uri === undefined) {
-      this.router.navigateByUrl('/login');
+      this.router.navigate([routePaths.login]);
     } else {
       this.qr_url = this.authService.qr_uri;
       this.otp_code = this.authService.otp_code as string;

@@ -166,12 +166,12 @@ export class CollaborationViewComponent
   goToNode(org: OrganizationInCollaboration): void {
     if (org.node) {
       this.nodeDataService.save(org.node);
-      this.router.navigate([`/node/${org.node.id}/view/${org.id}`]);
+      this.router.navigate([routePaths.node, org.id, org.node.id]);
     }
   }
 
   goToOrg(org: OrganizationInCollaboration): void {
-    this.router.navigate([`${routePaths.organization[0]}/${org.id}`]);
+    this.router.navigate([routePaths.organization[0], org.id]);
   }
 
   createNode(org: OrganizationInCollaboration): void {

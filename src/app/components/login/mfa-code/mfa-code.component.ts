@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { routePaths } from 'src/app/routes';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./mfa-code.component.scss'],
 })
 export class MfaCodeComponent implements OnInit {
+  routes = routePaths;
   form: any = {
     mfa_code: null,
   };
@@ -23,7 +25,7 @@ export class MfaCodeComponent implements OnInit {
       this.authService.username === undefined ||
       this.authService.password === undefined
     ) {
-      this.router.navigateByUrl('/login');
+      this.router.navigate([routePaths.login]);
     }
   }
 

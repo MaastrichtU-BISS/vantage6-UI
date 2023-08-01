@@ -68,7 +68,7 @@
     <td>
       <button mat-button *ngIf="task.parent_id; else noParentBlock"
           class="btn btn-link inline"
-          [routerLink]="['/task/view', task.parent_id, org_id]">
+          [routerLink]="[routes.task, org_id, task.parent_id]">
         Task #{{task.parent_id}}
       </button>
       <ng-template #noParentBlock>
@@ -83,7 +83,7 @@
         <div *ngFor="let child_id of task.children_ids">
           <button mat-button
               class="btn btn-link inline"
-              [routerLink]="['/task/view', child_id, org_id]">
+              [routerLink]="[routes.task, org_id, child_id]">
             Task #{{child_id}}
           </button>
         </div>
@@ -96,7 +96,7 @@
 </table>
 <button *ngIf="canRepeatTask()"
     mat-button class="btn btn-save"
-    [routerLink]="['/task/create', userPermission.user.organization_id, 'repeat', task.id]">
+    [routerLink]="[routes.taskCreate, userPermission.user.organization_id, 'repeat', task.id]">
   Repeat
 </button>
 <button *ngIf="userPermission.can('delete', 'task', org_id)"

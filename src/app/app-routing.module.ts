@@ -34,37 +34,37 @@ import { routeConfig, routePaths } from './routes';
 const routes: Routes = [
   { path: '', redirectTo: routePaths.start, pathMatch: 'full' },
   {
-    path: 'login',
+    path: routeConfig.login,
     component: LoginPageComponent,
   },
   {
-    path: 'profile',
+    path: routeConfig.profile,
     component: ProfileComponent,
     data: { requiresLogin: true },
     canActivate: [AccessGuard],
   },
   {
-    path: 'password_lost',
+    path: routeConfig.passwordLost,
     component: LoginPageComponent,
   },
   {
-    path: 'password_recover',
+    path: routeConfig.passwordRecover,
     component: LoginPageComponent,
   },
   {
-    path: 'setup_mfa',
+    path: routeConfig.setupMFA,
     component: LoginPageComponent,
   },
   {
-    path: 'mfa_code',
+    path: routeConfig.codeMFA,
     component: LoginPageComponent,
   },
   {
-    path: 'mfa_lost',
+    path: routeConfig.lostMFA,
     component: LoginPageComponent,
   },
   {
-    path: 'mfa_recover',
+    path: routeConfig.recoverMFA,
     component: LoginPageComponent,
   },
   {
@@ -154,6 +154,16 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
+    path: routeConfig.user,
+    component: UserViewSingleComponent,
+    data: {
+      requiresLogin: true,
+      permissionType: OpsType.VIEW,
+      permissionResource: ResType.USER,
+    },
+    canActivate: [AccessGuardByOrgId],
+  },
+  {
     // TODO think what happens if a user tries to go to edit a user that they're
     // not allowed to edit, by directly going to the path? Does it work? Otherwise,
     // change the accessguard
@@ -206,6 +216,16 @@ const routes: Routes = [
       permissionResource: ResType.ROLE,
     },
     canActivate: [AccessGuard],
+  },
+  {
+    path: routeConfig.role,
+    component: RoleViewSingleComponent,
+    data: {
+      requiresLogin: true,
+      permissionType: OpsType.VIEW,
+      permissionResource: ResType.ROLE,
+    },
+    canActivate: [AccessGuardByOrgId],
   },
   {
     path: routeConfig.roleEdit,
@@ -300,7 +320,37 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
-    path: 'nodes',
+    path: routeConfig.task,
+    component: TaskViewSingleComponent,
+    data: {
+      requiresLogin: true,
+      permissionType: OpsType.VIEW,
+      permissionResource: ResType.TASK,
+    },
+    canActivate: [AccessGuardByOrgId],
+  },
+  {
+    path: routeConfig.taskCreate,
+    component: TaskCreateComponent,
+    data: {
+      requiresLogin: true,
+      permissionType: OpsType.CREATE,
+      permissionResource: ResType.TASK,
+    },
+    canActivate: [AccessGuard],
+  },
+  {
+    path: routeConfig.taskRepeat,
+    component: TaskCreateComponent,
+    data: {
+      requiresLogin: true,
+      permissionType: OpsType.CREATE,
+      permissionResource: ResType.TASK,
+    },
+    canActivate: [AccessGuard],
+  },
+  {
+    path: routeConfig.nodes,
     component: NodeTableComponent,
     data: {
       requiresLogin: true,
@@ -310,17 +360,7 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
-    path: 'node/:id/view/:org_id',
-    component: NodeSingleViewComponent,
-    data: {
-      requiresLogin: true,
-      permissionType: OpsType.VIEW,
-      permissionResource: ResType.NODE,
-    },
-    canActivate: [AccessGuardByOrgId],
-  },
-  {
-    path: 'nodes/org/:org_id',
+    path: routeConfig.nodesPerOrganization,
     component: NodeTableComponent,
     data: {
       requiresLogin: true,
@@ -330,7 +370,7 @@ const routes: Routes = [
     canActivate: [AccessGuardByOrgId],
   },
   {
-    path: 'nodes/collab/:collab_id',
+    path: routeConfig.nodesPerCollaboration,
     component: NodeTableComponent,
     data: {
       requiresLogin: true,
@@ -341,52 +381,12 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
-    path: 'task/view/:id/:org_id',
-    component: TaskViewSingleComponent,
+    path: routeConfig.node,
+    component: NodeSingleViewComponent,
     data: {
       requiresLogin: true,
       permissionType: OpsType.VIEW,
-      permissionResource: ResType.TASK,
-    },
-    canActivate: [AccessGuardByOrgId],
-  },
-  {
-    path: 'task/create/:org_id',
-    component: TaskCreateComponent,
-    data: {
-      requiresLogin: true,
-      permissionType: OpsType.CREATE,
-      permissionResource: ResType.TASK,
-    },
-    canActivate: [AccessGuard],
-  },
-  {
-    path: 'task/create/:org_id/repeat/:id',
-    component: TaskCreateComponent,
-    data: {
-      requiresLogin: true,
-      permissionType: OpsType.CREATE,
-      permissionResource: ResType.TASK,
-    },
-    canActivate: [AccessGuard],
-  },
-  {
-    path: 'role/view/:id/:org_id',
-    component: RoleViewSingleComponent,
-    data: {
-      requiresLogin: true,
-      permissionType: OpsType.VIEW,
-      permissionResource: ResType.ROLE,
-    },
-    canActivate: [AccessGuardByOrgId],
-  },
-  {
-    path: 'user/view/:id/:org_id',
-    component: UserViewSingleComponent,
-    data: {
-      requiresLogin: true,
-      permissionType: OpsType.VIEW,
-      permissionResource: ResType.USER,
+      permissionResource: ResType.NODE,
     },
     canActivate: [AccessGuardByOrgId],
   },

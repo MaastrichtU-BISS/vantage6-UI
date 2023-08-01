@@ -7,6 +7,7 @@ import { SignOutService } from 'src/app/services/common/sign-out.service';
 import { TokenStorageService } from 'src/app/services/common/token-storage.service';
 import { environment } from 'src/environments/environment';
 import { UserPermissionService } from './user-permission.service';
+import { routePaths } from 'src/app/routes';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +61,7 @@ export class AuthService {
     this.userPermission.setup();
 
     // after login, go to home
-    this.router.navigateByUrl('/home');
+    this.router.navigate([routePaths.start]);
 
     // clear credentials
     this.clearCredentials();

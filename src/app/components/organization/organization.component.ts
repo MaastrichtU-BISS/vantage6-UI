@@ -125,7 +125,7 @@ export class OrganizationComponent implements OnInit {
           "'",
         'Showing data on your own organization instead!',
       ]);
-      this.router.navigate([`${routePaths.organization[0]}`, this.loggedin_user.organization_id,]);
+      this.router.navigate([routePaths.organization[0], this.loggedin_user.organization_id,]);
       return;
     }
 
