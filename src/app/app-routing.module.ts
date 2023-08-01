@@ -74,13 +74,7 @@ const routes: Routes = [
     canActivate: [AccessGuard],
   },
   {
-    path: routeConfig.homeCollaboration,
-    component: HomeComponent,
-    data: { requiresLogin: true },
-    canActivate: [AccessGuard],
-  },
-  {
-    path: routeConfig.homeSettings,
+    path: routeConfig.home,
     component: HomeComponent,
     data: { requiresLogin: true },
     canActivate: [AccessGuard],

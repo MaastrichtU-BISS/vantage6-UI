@@ -96,7 +96,7 @@
 </table>
 <button *ngIf="canRepeatTask()"
     mat-button class="btn btn-save"
-    [routerLink]="[routes.taskCreate, userPermission.user.organization_id, 'repeat', task.id]">
+    [routerLink]="[routes.taskRepeat[0], userPermission.user.organization_id, routes.taskRepeat[2], task.id]">
   Repeat
 </button>
 <button *ngIf="userPermission.can('delete', 'task', org_id)"

@@ -78,7 +78,7 @@
 <br/>
 <button *ngIf="userPermission.hasPermission('edit', 'collaboration', 'global')"
     mat-button class="btn btn-edit inline"
-    (click)="edit(collaboration)" [routerLink]="[routes.collaborationEdit[0], collaboration.id, routes.collaborationEdit[1]]"
+    (click)="edit(collaboration)" [routerLink]="[routes.collaborationEdit[0], collaboration.id, routes.collaborationEdit[2]]"
     >
   Edit
 </button>

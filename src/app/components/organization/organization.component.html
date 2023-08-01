@@ -40,7 +40,7 @@
         <button *ngIf="userPermission.can('edit', 'organization', current_organization.id)"
                 mat-button class="btn-edit"
                 (click)="editOrganization(current_organization)"
-                [routerLink]="[routes.organizationEdit[0], current_organization.id, routes.organizationEdit[1]]">
+                [routerLink]="[routes.organizationEdit[0], current_organization.id, routes.organizationEdit[2]]">
           Edit
         </button>
       </mat-card>

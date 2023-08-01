@@ -92,9 +92,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.isGlobalSetting = isAdministration;
     sessionStorage.setItem('isAdministration', String(isAdministration));  
     if(this.isGlobalSetting) {
-      this.router.navigate([routePaths.homeSettings]);
+      this.router.navigate([routePaths.home]);
     } else {
-      this.router.navigate([routePaths.homeCollaboration]);
+      this.router.navigate([routePaths.home]);
     }
   }
 }
