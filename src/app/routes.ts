@@ -1,42 +1,38 @@
-const SETTINGS_PATH = 'settings';
-
 // Route paths (is an array when a parameter is needed)
 export const routePaths = {
   //Home
   start: '/start',
-  homeSettings: `/${SETTINGS_PATH}/home`,
+  homeSettings: `/home`,
   homeCollaboration: `/home`,
   //Organization
-  organization: [`/${SETTINGS_PATH}/organization`],
-  organizationCreate: `/${SETTINGS_PATH}/organization/create`,
-  organizationEdit: [`/${SETTINGS_PATH}/organization`, 'edit'],
+  organization: [`/organization`],
+  organizationCreate: `/organization/create`,
+  organizationEdit: [`/organization`, 'edit'],
   //User
-  users: `/${SETTINGS_PATH}/users`,
-  usersForOrganization: [`/${SETTINGS_PATH}/users`],
-  userCreate: `/${SETTINGS_PATH}/user/create`,
-  userCreateForOrganization: [`/${SETTINGS_PATH}/user/create`],
-  userEdit: [`/${SETTINGS_PATH}/user`, 'edit'],
+  users: `/users`,
+  usersForOrganization: [`/users`],
+  userCreate: `/user/create`,
+  userCreateForOrganization: [`/user/create`],
+  userEdit: [`/user`, 'edit'],
   //Roles
-  roles: `/${SETTINGS_PATH}/roles`,
-  rolesForOrganization: [`/${SETTINGS_PATH}/roles`],
-  roleCreate: `/${SETTINGS_PATH}/role/create`,
-  roleCreateForOrganization: [`/${SETTINGS_PATH}/role/create`],
-  roleEdit: [`/${SETTINGS_PATH}/role`, 'edit'],
-  collaborations: `/${SETTINGS_PATH}/collaborations`,
-  collaborationsForOrganization: [`/${SETTINGS_PATH}/collaborations`],
-  collaboration: [`/${SETTINGS_PATH}/collaboration`],
-  collaborationCreate: `/${SETTINGS_PATH}/collaboration/create`,
-  collaborationEdit: [`/${SETTINGS_PATH}/collaboration`, 'edit'],
+  roles: `/roles`,
+  rolesForOrganization: [`/roles`],
+  roleCreate: `/role/create`,
+  roleCreateForOrganization: [`/role/create`],
+  roleEdit: [`/role`, 'edit'],
+  collaborations: `/collaborations`,
+  collaborationsForOrganization: [`/collaborations`],
+  collaboration: [`/collaboration`],
+  collaborationCreate: `/collaboration/create`,
+  collaborationEdit: [`/collaboration`, 'edit'],
   //Task
-  tasks: `/${SETTINGS_PATH}/tasks`,
-  tasksPerOrganization: [`/${SETTINGS_PATH}/tasks/org`],
-  tasksPerCollaboration: [`/${SETTINGS_PATH}/tasks/collab`]
+  tasks: `/tasks`,
+  tasksPerOrganization: [`/tasks/org`],
+  tasksPerCollaboration: [`/tasks/collab`]
 }
 
 // Routes for routerLink configuration
 export const routeConfig = {
-  //Parents
-  settings: SETTINGS_PATH,
   //Home
   start: 'start',
   homeSettings: `home`,

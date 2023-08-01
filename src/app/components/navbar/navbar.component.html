@@ -5,10 +5,10 @@
   </button>
   <img class="logo" src="../assets/images/vantage6_logo.png" />
   <div class="actions">
-    <button *ngIf="!isGlobalSetting" mat-stroked-button [routerLink]="[routes.homeSettings]">
+    <button *ngIf="!isGlobalSetting" mat-stroked-button (click)="handleLayoutSwitchClick(true)">
       Administration
     </button>
-    <button *ngIf="isGlobalSetting" mat-stroked-button [routerLink]="[routes.start]">
+    <button *ngIf="isGlobalSetting" mat-stroked-button  (click)="handleLayoutSwitchClick(false)">
       Leave administration
     </button>
     <button

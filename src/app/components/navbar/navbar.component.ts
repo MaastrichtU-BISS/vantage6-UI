@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { delay, filter } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { SocketioMessageService } from 'src/app/services/common/socketio-message
   styleUrls: ['./navbar.component.scss'],
   host: { '[class.full-layout]': 'useFullLayout' },
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   routes = routePaths;
   loggedin_user: User = getEmptyUser();
   useFullLayout: boolean = false;
@@ -27,8 +27,8 @@ export class NavbarComponent implements AfterViewInit {
   sidenav!: MatSidenav;
 
   constructor(
-    router: Router,
     route: ActivatedRoute,
+    private router: Router,
     private observer: BreakpointObserver,
     public userPermission: UserPermissionService,
     private signOutService: SignOutService,
@@ -42,9 +42,6 @@ export class NavbarComponent implements AfterViewInit {
         const previousLayout = this.useFullLayout;
         this.useFullLayout =
           !!route.root.firstChild?.snapshot.data['fullLayout'];
-        this.isGlobalSetting = !!(event as NavigationEnd).url.includes(
-          'settings'
-        );
         if (previousLayout !== this.useFullLayout) {
           setTimeout(() => {
             this.handleSideNavChange(
@@ -58,6 +55,15 @@ export class NavbarComponent implements AfterViewInit {
         this.loggedin_user = this.userPermission.user;
       }
     });
+  }
+
+  ngOnInit(): void {
+    const isAdministration = sessionStorage.getItem('isAdministration');
+    if (isAdministration) {
+      this.isGlobalSetting = isAdministration  === 'true';
+    } else {
+      this.router.navigate([routePaths.start]);
+    }
   }
 
   ngAfterViewInit() {
@@ -79,6 +85,16 @@ export class NavbarComponent implements AfterViewInit {
       this.sidenav?.close();
     } else {
       this.sidenav?.open();
+    }
+  }
+
+  handleLayoutSwitchClick(isAdministration: boolean) {
+    this.isGlobalSetting = isAdministration;
+    sessionStorage.setItem('isAdministration', String(isAdministration));  
+    if(this.isGlobalSetting) {
+      this.router.navigate([routePaths.homeSettings]);
+    } else {
+      this.router.navigate([routePaths.homeCollaboration]);
     }
   }
 }
