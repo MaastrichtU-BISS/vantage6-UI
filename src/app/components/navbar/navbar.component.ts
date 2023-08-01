@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   routes = routePaths;
   loggedin_user: User = getEmptyUser();
   useFullLayout: boolean = false;
-  isGlobalSetting: boolean = false;
+  isAdministration: boolean = false;
   isMobile: boolean = false;
 
   @ViewChild(MatSidenav)
@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const isAdministration = sessionStorage.getItem('isAdministration');
     if (isAdministration) {
-      this.isGlobalSetting = isAdministration  === 'true';
+      this.isAdministration = isAdministration  === 'true';
     } else {
       this.router.navigate([routePaths.start]);
     }
@@ -89,9 +89,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   handleLayoutSwitchClick(isAdministration: boolean) {
-    this.isGlobalSetting = isAdministration;
+    this.isAdministration = isAdministration;
     sessionStorage.setItem('isAdministration', String(isAdministration));  
-    if(this.isGlobalSetting) {
+    if(this.isAdministration) {
       this.router.navigate([routePaths.home]);
     } else {
       this.router.navigate([routePaths.home]);

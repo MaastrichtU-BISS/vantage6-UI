@@ -5,10 +5,10 @@
   </button>
   <img class="logo" src="../assets/images/vantage6_logo.png" />
   <div class="actions">
-    <button *ngIf="!isGlobalSetting" mat-stroked-button (click)="handleLayoutSwitchClick(true)">
+    <button *ngIf="!isAdministration" mat-stroked-button (click)="handleLayoutSwitchClick(true)">
       Administration
     </button>
-    <button *ngIf="isGlobalSetting" mat-stroked-button  (click)="handleLayoutSwitchClick(false)">
+    <button *ngIf="isAdministration" mat-stroked-button  (click)="handleLayoutSwitchClick(false)">
       Leave administration
     </button>
     <button
@@ -34,7 +34,7 @@
 >
   <mat-sidenav #sidenav="matSidenav" [mode]="isMobile ? 'over' : 'side'">
     <!-- Link to home page -->
-    <ng-container *ngIf="!isGlobalSetting">
+    <ng-container>
       <button
         mat-button
         class="menu-button"
@@ -45,185 +45,145 @@
         <span>Home</span>
       </button>
     </ng-container>
-    <ng-container *ngIf="isGlobalSetting">
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.home]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </button>
-    </ng-container>
-    <!-- Link to organization page -->
-    <ng-container
-      *ngIf="
-        isGlobalSetting &&
-        userPermission.hasPermission('view', 'organization', '*')
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.organization[0], loggedin_user.organization_id]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>location_city</mat-icon>
-        <span>Organization</span>
-      </button>
-    </ng-container>
-    
-    <!-- Link to collaboration page -->
-    <ng-container
-      *ngIf="
-        isGlobalSetting &&
-          userPermission.hasPermission('view', 'collaboration', 'global');
-        else orgCollabLink
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.collaborations]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>train</mat-icon>
-        <span>Collaborations</span>
-      </button>
-    </ng-container>
-    <ng-template #orgCollabLink>
-      <div
-        *ngIf="
-          isGlobalSetting &&
-          userPermission.hasPermission('view', 'collaboration', 'organization')
+    <ng-container *ngIf="isAdministration">
+      <!-- Link to organization page -->
+      <ng-container *ngIf="userPermission.hasPermission('view', 'organization', '*')">
+        <button
+          mat-button
+          class="menu-button"
+          [routerLink]="[routes.organization[0], loggedin_user.organization_id]"
+          routerLinkActive="menu-is-active"
+        >
+          <mat-icon>location_city</mat-icon>
+          <span>Organization</span>
+        </button>
+      </ng-container>
+      
+      <!-- Link to collaboration page -->
+      <ng-container
+        *ngIf="userPermission.hasPermission('view', 'collaboration', 'global');
+          else orgCollabLink
         "
       >
         <button
           mat-button
           class="menu-button"
-          [routerLink]="[routes.collaborationsForOrganization[0], loggedin_user.organization_id]"
+          [routerLink]="[routes.collaborations]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>train</mat-icon>
           <span>Collaborations</span>
         </button>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #orgCollabLink>
+        <div *ngIf="userPermission.hasPermission('view', 'collaboration', 'organization')">
+          <button
+            mat-button
+            class="menu-button"
+            [routerLink]="[routes.collaborationsForOrganization[0], loggedin_user.organization_id]"
+            routerLinkActive="menu-is-active"
+          >
+            <mat-icon>train</mat-icon>
+            <span>Collaborations</span>
+          </button>
+        </div>
+      </ng-template>
 
-    <!-- Link to role page -->
-    <ng-container
-      *ngIf="
-        isGlobalSetting &&
-          userPermission.hasPermission('view', 'role', 'global');
-        else orgRoleLink
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.roles]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>roller_skating</mat-icon>
-        <span>Roles</span>
-      </button>
-    </ng-container>
-    <ng-template #orgRoleLink>
-      <div
+      <!-- Link to role page -->
+      <ng-container
         *ngIf="
-          isGlobalSetting &&
-          userPermission.hasPermission('view', 'role', 'organization')
+        userPermission.hasPermission('view', 'role', 'global');
+          else orgRoleLink
         "
       >
         <button
           mat-button
           class="menu-button"
-          [routerLink]="[routes.rolesForOrganization[0], loggedin_user.organization_id]"
+          [routerLink]="[routes.roles]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>roller_skating</mat-icon>
           <span>Roles</span>
         </button>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #orgRoleLink>
+        <div *ngIf="userPermission.hasPermission('view', 'role', 'organization')"
+        >
+          <button
+            mat-button
+            class="menu-button"
+            [routerLink]="[routes.rolesForOrganization[0], loggedin_user.organization_id]"
+            routerLinkActive="menu-is-active"
+          >
+            <mat-icon>roller_skating</mat-icon>
+            <span>Roles</span>
+          </button>
+        </div>
+      </ng-template>
 
-    <!-- Link to user page -->
-    <ng-container
-      *ngIf="
-        isGlobalSetting &&
-          userPermission.hasPermission('view', 'user', 'global');
-        else orgUserLink
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.users]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>people</mat-icon>
-        <span>Users</span>
-      </button>
-    </ng-container>
-    <ng-template #orgUserLink>
-      <div
+      <!-- Link to user page -->
+      <ng-container
         *ngIf="
-          isGlobalSetting &&
-          userPermission.hasPermission('view', 'user', 'organization')
+            userPermission.hasPermission('view', 'user', 'global');
+          else orgUserLink
         "
       >
         <button
           mat-button
           class="menu-button"
-          [routerLink]="[routes.usersForOrganization[0], loggedin_user.organization_id]"
+          [routerLink]="[routes.users]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>people</mat-icon>
           <span>Users</span>
         </button>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #orgUserLink>
+        <div *ngIf="userPermission.hasPermission('view', 'user', 'organization')">
+          <button
+            mat-button
+            class="menu-button"
+            [routerLink]="[routes.usersForOrganization[0], loggedin_user.organization_id]"
+            routerLinkActive="menu-is-active"
+          >
+            <mat-icon>people</mat-icon>
+            <span>Users</span>
+          </button>
+        </div>
+      </ng-template>
 
-    <!-- Link to node page -->
-    <ng-container
-      *ngIf="
-        !isGlobalSetting &&
-          userPermission.hasPermission('view', 'node', 'global');
-        else orgNodeLink
-      "
-    >
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.nodes]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>data_object</mat-icon>
-        <span>Nodes</span>
-      </button>
-    </ng-container>
-    <ng-template #orgNodeLink>
-      <div
+      <!-- Link to node page -->
+      <ng-container
         *ngIf="
-          !isGlobalSetting &&
-          userPermission.hasPermission('view', 'node', 'organization')
+            userPermission.hasPermission('view', 'node', 'global');
+          else orgNodeLink
         "
       >
         <button
           mat-button
           class="menu-button"
-          [routerLink]="[routes.nodesPerOrganization[0], loggedin_user.organization_id]"
+          [routerLink]="[routes.nodes]"
           routerLinkActive="menu-is-active"
         >
           <mat-icon>data_object</mat-icon>
           <span>Nodes</span>
         </button>
-      </div>
-    </ng-template>
+      </ng-container>
+      <ng-template #orgNodeLink>
+        <div *ngIf="userPermission.hasPermission('view', 'node', 'organization')">
+          <button
+            mat-button
+            class="menu-button"
+            [routerLink]="[routes.nodesPerOrganization[0], loggedin_user.organization_id]"
+            routerLinkActive="menu-is-active"
+          >
+            <mat-icon>data_object</mat-icon>
+            <span>Nodes</span>
+          </button>
+        </div>
+      </ng-template>
 
-    <!-- Link to task page -->
-    <ng-container *ngIf="isGlobalSetting">
+      <!-- Link to task page -->
       <ng-container
         *ngIf="
           userPermission.hasPermission('view', 'task', 'global');
@@ -255,18 +215,20 @@
       </ng-template>
     </ng-container>
 
-    <!-- Link to event page -->
-    <ng-container *ngIf="userPermission.hasPermission('view', 'event', '*')">
-      <mat-divider></mat-divider>
-      <button
-        mat-button
-        class="menu-button"
-        [routerLink]="[routes.statusMessages]"
-        routerLinkActive="menu-is-active"
-      >
-        <mat-icon>message</mat-icon>
-        <span>Status updates</span>
-      </button>
+    <ng-container *ngIf="!isAdministration">
+      <!-- Link to event page -->
+      <ng-container *ngIf="userPermission.hasPermission('view', 'event', '*')">
+        <mat-divider></mat-divider>
+        <button
+          mat-button
+          class="menu-button"
+          [routerLink]="[routes.statusMessages]"
+          routerLinkActive="menu-is-active"
+        >
+          <mat-icon>message</mat-icon>
+          <span>Status updates</span>
+        </button>
+      </ng-container>
     </ng-container>
 
     <!-- TODO add help pages -->
