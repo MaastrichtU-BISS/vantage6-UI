@@ -1,1 +1,4 @@
-<p>dashboard works!</p>
+<div *ngFor="let block of data">
+    <span>{{ block.type }}: </span>
+    <span>{{ block.value }} </span>
+</div>
