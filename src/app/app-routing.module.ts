@@ -28,7 +28,7 @@ import { NodeSingleViewComponent } from './components/view-single/node-single-vi
 import { LoginPageComponent } from './components/login/login-page/login-page.component';
 import { TaskCreateComponent } from './components/edit/task-create/task-create.component';
 import { SocketMessagesComponent } from './components/table/socket-messages/socket-messages.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardListComponent } from './components/dashboard/dashboard-list/dashboard-list.component';
 
 const routes: Routes = [
   {
@@ -388,7 +388,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: DashboardListComponent,
   },
 ];
 //TODO add * path with 404 not found page
