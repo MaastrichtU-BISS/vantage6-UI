@@ -77,7 +77,8 @@ import { MfaLostComponent } from './components/login/mfa-lost/mfa-lost.component
 import { MfaRecoverComponent } from './components/login/mfa-recover/mfa-recover.component';
 import { TaskCreateComponent } from './components/edit/task-create/task-create.component';
 import { ModalCreateComponent } from './components/modal/modal-create/modal-create.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardListComponent } from './components/dashboard/dashboard-list/dashboard-list.component';
+import { DashboardItemComponent } from './components/dashboard/dashboard-item/dashboard-item.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     MfaRecoverComponent,
     TaskCreateComponent,
     ModalCreateComponent,
-    DashboardComponent,
+    DashboardListComponent,
+    DashboardItemComponent,
   ],
   imports: [
     BrowserModule,

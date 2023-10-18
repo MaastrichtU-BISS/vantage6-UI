@@ -1,0 +1,6 @@
+<div *ngIf="loaded else loading" >
+    <div *ngFor="let chart of dashboard_schema" class="chart-container mb-5 mx-auto">
+        <app-dashboard-item [title]="chart.title" [type]="chart.type" [data]="chart.data"></app-dashboard-item>
+    </div>
+</div>
+<ng-template #loading>loading...</ng-template>
