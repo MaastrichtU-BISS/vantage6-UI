@@ -1,6 +1,16 @@
-<div *ngIf="loaded else loading" >
-    <div *ngFor="let chart of dashboard_schema" class="chart-container mb-5 mx-auto">
-        <app-dashboard-item [title]="chart.title" [type]="chart.type" [data]="chart.data"></app-dashboard-item>
+<div class="chart-region">
+    <div class="chart-left-panel">
+        <ul class="p-3 mb-0" style="list-style-type: none">
+            <li *ngFor="let chart of dashboard_schema">
+                <a [routerLink]="['/dashboard']" [queryParams]="{chart: chart.title}" type="button" (click)="changeActive(chart.title)">{{ chart.title }}</a>
+            </li>
+        </ul>
     </div>
+    <div *ngIf="loaded else loading" class="chart-container mx-auto">
+        <div *ngFor="let chart of dashboard_schema" >
+            <app-dashboard-item *ngIf="active == chart.title" [title]="chart.title" [type]="chart.type" [data]="chart.data"></app-dashboard-item>
+        </div>
+    </div>
+    <ng-template #loading>loading...</ng-template>
 </div>
-<ng-template #loading>loading...</ng-template>
+
