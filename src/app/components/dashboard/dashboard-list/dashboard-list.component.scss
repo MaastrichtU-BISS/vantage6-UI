@@ -1,3 +1,17 @@
-.chart-container {
-    width: 600px;
+.chart-region .chart-container {
+    height: calc(100vh - 132px);
+}
+
+.chart-region > .chart-left-panel {
+    background-color: white;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.chart-region > .chart-left-panel li {
+    padding-bottom: 5px;
+}
+
+.chart-region {
+    display: flex;
 }
