@@ -24,49 +24,68 @@ export class DashboardItemComponent implements AfterViewInit {
 
   chart: Chart | null = null;
 
-  getData(type: types, data: any): any {
+  getData(type: types, data: any, title: string): any {
     switch (type) {
       case types.bar:
-        return data.y;
+        return this.multiset(data);
       case types.line:
-        return data.y;
+        return this.multiset(data);
       case types.pie:
-        return data.y;
+        return this.uniset(data, title);
       case types.doughnut:
-        return data.y;
+        return this.uniset(data, title);
       case types.polarArea:
-        return data.y;
+        return this.uniset(data, title);
       case types.radar:
-        return data.y;
+        return this.multiset(data);
       case types.bubble:
-        return data.x.map((x: any, index: number) => {
-          return {
-            x: x,
-            y: data.y[index],
-            r: data.r[index],
-          };
-        });
+        return this.multiset(data, true);
       default:
         return [];
     }
   }
 
+  multiset(data: any, radius: boolean = false): any {
+    return {
+      labels: data.x,
+      datasets: data.datasets.map((ds: any) => {
+        return {
+          label: ds.label,
+          data: !radius
+            ? ds.y
+            : data.x.map((x: any, index: number) => {
+                return {
+                  x: x,
+                  y: ds.y[index],
+                  r: ds.r[index],
+                };
+              }),
+        };
+      }),
+    };
+  }
+
+  uniset(data: any, title: string): any {
+    return {
+      labels: data.x,
+      datasets: [
+        {
+          label: title,
+          data: data.y,
+        },
+      ],
+    };
+  }
+
   constructor() {}
 
   ngAfterViewInit(): void {
+    console.log(this.data);
     const ele = document.getElementById(this.title) as HTMLCanvasElement | null;
     if (!ele) return;
     this.chart = new Chart(ele, {
       type: this.type as ChartType,
-      data: {
-        labels: this.data.x,
-        datasets: [
-          {
-            label: this.title,
-            data: this.getData(this.type as types, this.data),
-          },
-        ],
-      },
+      data: this.getData(this.type as types, this.data, this.title),
     });
   }
 }
