@@ -80,7 +80,6 @@ export class DashboardItemComponent implements AfterViewInit {
   constructor() {}
 
   ngAfterViewInit(): void {
-    console.log(this.data);
     const ele = document.getElementById(this.title) as HTMLCanvasElement | null;
     if (!ele) return;
     this.chart = new Chart(ele, {

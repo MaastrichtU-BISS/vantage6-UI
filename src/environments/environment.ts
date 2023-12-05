@@ -4,7 +4,8 @@
 
 let env: any = {
   production: false,
-  server_url: 'http://localhost:5000',
+  // server_url: 'http://localhost:5000',
+  server_url: 'http://server.wp3.johanvansoest.nl',
   api_path: '/api',
 };
 

@@ -23,6 +23,11 @@
           (click)="downloadResult()">
         Download results
       </button>
+      <a *ngIf="result.result; else noResultBlock" [routerLink]="['/dashboard']" [queryParams]="{id: result.task_id}" type="button">
+        <button *ngIf="result.result; else noResultBlock" mat-button class="btn btn-dflt ml-3">
+          Visualize results
+        </button>
+      </a>
       <ng-template #noResultBlock>
         No results available
       </ng-template>

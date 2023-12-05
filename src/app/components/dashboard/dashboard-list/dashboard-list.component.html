@@ -2,7 +2,7 @@
     <div class="chart-left-panel">
         <ul class="p-3 mb-0" style="list-style-type: none">
             <li *ngFor="let chart of dashboard_schema">
-                <a [routerLink]="['/dashboard']" [queryParams]="{chart: chart.title}" type="button" (click)="changeActive(chart.title)">{{ chart.title }}</a>
+                <a [routerLink]="['/dashboard']" [queryParams]="{id: task_id, chart: chart.title}" type="button" (click)="changeActive(chart.title)">{{ chart.title }}</a>
             </li>
         </ul>
     </div>
