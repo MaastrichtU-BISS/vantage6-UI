@@ -5,7 +5,8 @@ name: Build and deploy Node.js app to Azure Web App - ui-petronas
 
 on:
   push:
-
+env:
+  REGISTRY: ghcr.io
 jobs:
   # Build artifact for deployment
   build:
